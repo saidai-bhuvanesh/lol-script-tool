@@ -1,0 +1,7 @@
+playwright
+pandas
+openpyxl
+google-generativeai
+python-dotenv
+yagmail
+pydantic

@@ -1,0 +1,44 @@
+name: Daily AI Job Scraper
+
+on:
+  schedule:
+    - cron: '0 4 * * *' # Runs every day at 4:00 AM UTC (9:30 AM IST)
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  scrape_and_mail:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install transformers sentence-transformers playwright
+          playwright install chromium
+
+      - name: Run Scraper
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+          SENDER_PASSWORD: ${{ secrets.SENDER_PASSWORD }}
+          RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
+          RESUME_PATH: "resume.txt"
+          TARGET_ROLES: "Software Engineer"
+          TARGET_LOCATIONS: "Germany, Netherlands"
+        run: python main.py
+
+      - name: Upload Daily Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-job-report
+          path: data/*.xlsx

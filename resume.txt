@@ -1,0 +1,6 @@
+John Doe
+Full Stack Developer
+Skills: Python, JavaScript, React, Node.js, AWS, Docker, AI/ML.
+Experience: 3 years.
+Location: New York (Seeking Abroad Opportunities)
+Goal: To work as a Software Engineer in Europe or Canada.

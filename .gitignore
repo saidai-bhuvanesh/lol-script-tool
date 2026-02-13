@@ -1,0 +1,13 @@
+venv/
+data/*.xlsx
+data/__pycache__/
+__pycache__/
+*.pyc
+.env
+run_log.txt
+llama_finetuning/
+check_files.py
+init_project.py
+setup.py
+.venv/
+.ipynb_checkpoints/
